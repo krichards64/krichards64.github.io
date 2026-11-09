@@ -1,1 +1,210 @@
-<img src="DontTreadonMe.jpg" alt="Snek">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Down for Maintenance</title>
+<style>
+  :root {
+    --bg1: #0b1020;
+    --bg2: #131a33;
+    --accent: #6ee7d8;
+    --accent2: #8b9cff;
+    --text: #e8ecf8;
+    --muted: #9aa3c0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--text);
+    background: radial-gradient(ellipse at 20% 10%, #1c2550 0%, transparent 55%),
+                radial-gradient(ellipse at 85% 90%, #0f3a44 0%, transparent 50%),
+                linear-gradient(160deg, var(--bg1), var(--bg2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    overflow: hidden;
+  }
+
+  /* faint grid backdrop */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+    pointer-events: none;
+  }
+
+  .card {
+    position: relative;
+    max-width: 560px;
+    width: 100%;
+    text-align: center;
+    padding: 56px 40px 44px;
+    border-radius: 24px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.06);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    animation: rise 0.8s ease-out both;
+  }
+
+  .icon {
+    width: 132px;
+    height: 132px;
+    margin: 0 auto 32px;
+    position: relative;
+  }
+  .icon svg { width: 100%; height: 100%; overflow: visible; }
+
+  .ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1px solid var(--accent);
+    opacity: 0;
+    animation: ping 3s ease-out infinite;
+  }
+  .ring:nth-child(2) { animation-delay: 1s; }
+  .ring:nth-child(3) { animation-delay: 2s; }
+
+  .node { fill: var(--bg2); stroke: var(--accent); stroke-width: 2.5; }
+  .node.center { stroke: var(--accent2); }
+  .link {
+    stroke: var(--muted);
+    stroke-width: 2;
+    stroke-dasharray: 4 6;
+    animation: flow 1.2s linear infinite;
+    opacity: 0.7;
+  }
+  .gear { transform-origin: 66px 66px; animation: spin 6s linear infinite; }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(110,231,216,0.08);
+    border: 1px solid rgba(110,231,216,0.25);
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin-bottom: 20px;
+  }
+  .badge .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
+    animation: blink 1.6s ease-in-out infinite;
+  }
+
+  h1 {
+    font-size: clamp(28px, 5vw, 38px);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+    background: linear-gradient(90deg, #ffffff, #c9d2ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  p {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--muted);
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  .progress {
+    margin: 36px auto 0;
+    height: 4px;
+    width: 70%;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.07);
+    overflow: hidden;
+    position: relative;
+  }
+  .progress::after {
+    content: "";
+    position: absolute;
+    top: 0; left: -40%;
+    height: 100%; width: 40%;
+    border-radius: 4px;
+    background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
+    animation: slide 2.2s ease-in-out infinite;
+  }
+
+  .foot {
+    margin-top: 22px;
+    font-size: 13px;
+    color: #6f7896;
+  }
+
+  @keyframes ping  { 0% { transform: scale(0.6); opacity: 0.6; } 100% { transform: scale(1.5); opacity: 0; } }
+  @keyframes flow  { to { stroke-dashoffset: -20; } }
+  @keyframes spin  { to { transform: rotate(360deg); } }
+  @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
+  @keyframes slide { 0% { left: -40%; } 100% { left: 100%; } }
+  @keyframes rise  { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; }
+  }
+  @media (max-width: 480px) {
+    .card { padding: 44px 24px 36px; }
+  }
+</style>
+</head>
+<body>
+  <main class="card">
+    <div class="icon" aria-hidden="true">
+      <span class="ring"></span>
+      <span class="ring"></span>
+      <span class="ring"></span>
+      <svg viewBox="0 0 132 132">
+        <line class="link" x1="66" y1="66" x2="20" y2="24" />
+        <line class="link" x1="66" y1="66" x2="112" y2="24" />
+        <line class="link" x1="66" y1="66" x2="20" y2="108" />
+        <line class="link" x1="66" y1="66" x2="112" y2="108" />
+        <circle class="node" cx="20"  cy="24"  r="8" />
+        <circle class="node" cx="112" cy="24"  r="8" />
+        <circle class="node" cx="20"  cy="108" r="8" />
+        <circle class="node" cx="112" cy="108" r="8" />
+        <circle class="node center" cx="66" cy="66" r="22" />
+        <g class="gear" fill="none" stroke="#8b9cff" stroke-width="2.5" stroke-linecap="round">
+          <circle cx="66" cy="66" r="6" />
+          <line x1="66" y1="52" x2="66" y2="56" />
+          <line x1="66" y1="76" x2="66" y2="80" />
+          <line x1="52" y1="66" x2="56" y2="66" />
+          <line x1="76" y1="66" x2="80" y2="66" />
+          <line x1="56.1" y1="56.1" x2="58.9" y2="58.9" />
+          <line x1="73.1" y1="73.1" x2="75.9" y2="75.9" />
+          <line x1="56.1" y1="75.9" x2="58.9" y2="73.1" />
+          <line x1="73.1" y1="58.9" x2="75.9" y2="56.1" />
+        </g>
+      </svg>
+    </div>
+
+    <div class="badge"><span class="dot"></span>Maintenance in progress</div>
+
+    <h1>We'll be right back</h1>
+    <p>We're down for some much-needed network maintenance :)<br>Thanks for your patience. Things will be back up shortly.</p>
+
+    <div class="progress" aria-hidden="true"></div>
+    <div class="foot">Please check back soon.</div>
+  </main>
+</body>
+</html>
